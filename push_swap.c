@@ -6,47 +6,40 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/07 21:15:12 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/08 20:06:53 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
 #include "ft_printf/ft_printf.h"
 
-struct push_swap
-{
-	int	value;
-	struct push_swap *next;
-};
-typedef struct push_swap list_t;
-
-list_t	*ft_lstnew(int content)
-{
-	list_t	*result;
-
-	result = malloc(sizeof(list_t));
-	if (!result)
-		return (0);
-	result->value = content;
-	result->next = NULL;
-	return (result);
-}
-
-int	char_to_int(char *str)
+int	char_to_int(char *str, int *num)
 {
 	int	n;
 	int	i;
+	int	signal;
 
 	i = 0;
 	n = 0;
+	signal = 1;
+	if (str[i] == '-')
+	{
+		signal *= -1;
+		i++;
+	}
 	while (str[i] != '\0')
 	{
+		if ((n * 10) + (str[i] - '0') > INT_MAX)
+			return (0);
 		n = (n * 10) + (str[i] - '0');
 		i++;
 	}
-	return (n);
+	n *= signal;
+	*num = n;
+	return (1);
 }
 
 size_t	ft_strlen(const char *s)
@@ -72,44 +65,49 @@ int	error_checker(int argc, char **argv)
 	{
 		while (j < ft_strlen(argv[i]))
 		{
+			if (j == 0 && argv[i][j] == '-')
+			{
+				j++;
+				continue ;
+			}
 			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (0);
 			j++;
 		}
+		j = 0;
 		i++;
 	}
 	return (1);
 }
 
-void	printlist(list_t *head)
-{
-	list_t	*aux;
-
-	aux = head;
-	while (aux != NULL)
-	{
-		printf("%d - ", aux->value);
-		aux = aux->next;
-	}
-	printf("\n");
-}
+//int	string_to_array()
 
 int	main(int argc, char **argv)
 {	
-	int		i;
-	list_t	*head;
-	int		n;
+	int	i;
+	int	*nums;
 
 	if (error_checker(argc, argv) == 0)
 	{
-		write(1, "Error", 5);
+		printf("Error\n");
 		return (0);
 	}
-	n.value = char_to_int(argv[1]);
-	head = &n;
-	i = 2;
-	while (argv[i])
-		ft_lstnew(char_to_int(argv[i]));
-	printlist(head);
-
+	nums = malloc(sizeof(int) * argc);
+	i = 1;
+	while (i < argc)
+	{
+		if (char_to_int(argv[i], &nums[(i-1)]) == 0)
+		{
+			printf("Error\n");
+			return (0);
+		}
+		i++;
+	}
+	nums[(i-1)] = '!';
+	i = 0;
+	while (nums[i] != '!')
+	{
+		printf("%d\n", nums[i]);
+		i++;
+	}
 }
