@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/08 20:06:53 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/09 15:55:20 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,21 @@
 #include <limits.h>
 #include "ft_printf/ft_printf.h"
 
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
 int	char_to_int(char *str, int *num)
 {
-	int	n;
-	int	i;
-	int	signal;
+	long int	n;
+	int			i;
+	int			signal;
 
 	i = 0;
 	n = 0;
@@ -32,24 +42,16 @@ int	char_to_int(char *str, int *num)
 	}
 	while (str[i] != '\0')
 	{
-		if ((n * 10) + (str[i] - '0') > INT_MAX)
+		if (signal == 1 && (n * 10) + (str[i] - '0') > INT_MAX)
+			return (0);
+		if (signal == -1 && (n * 10) + (str[i] - '0') > 2147483648)
 			return (0);
 		n = (n * 10) + (str[i] - '0');
 		i++;
 	}
 	n *= signal;
-	*num = n;
+	*num = (int)n;
 	return (1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 int	error_checker(int argc, char **argv)
@@ -80,34 +82,48 @@ int	error_checker(int argc, char **argv)
 	return (1);
 }
 
-//int	string_to_array()
+int	*string_to_array(int argc, char **argv, int *boo)
+{
+	int	*stack;
+	int	i;
+	int	cont;	
+
+	*boo = 1;
+	if (error_checker(argc, argv) == 0)
+		*boo = 0;
+	stack = malloc(sizeof(int) * (argc - 1));
+	i = 1;
+	while (i < argc)
+	{
+		if (char_to_int(argv[i], &stack[(i-1)]) == 0)
+			*boo = 0;
+		cont = 0;
+		while (cont < (i-1))
+		{
+			if (stack[(i-1)] == stack[cont])
+				*boo = 0;
+			cont++;
+		}
+		i++;
+	}
+	return (stack);
+}
 
 int	main(int argc, char **argv)
 {	
 	int	i;
-	int	*nums;
+	int	*stack;
+	int	boo;
 
-	if (error_checker(argc, argv) == 0)
+	stack = string_to_array(argc, argv, &boo);
+	if (boo == 0)
 	{
 		printf("Error\n");
 		return (0);
 	}
-	nums = malloc(sizeof(int) * argc);
-	i = 1;
-	while (i < argc)
+	while (i < argc - 1)
 	{
-		if (char_to_int(argv[i], &nums[(i-1)]) == 0)
-		{
-			printf("Error\n");
-			return (0);
-		}
-		i++;
-	}
-	nums[(i-1)] = '!';
-	i = 0;
-	while (nums[i] != '!')
-	{
-		printf("%d\n", nums[i]);
+		printf("%d\n", stack[i]);
 		i++;
 	}
 }
