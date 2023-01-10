@@ -46,7 +46,7 @@ void	push(int **taken, int **given, int size_taken, int size_given)
 	free(given_tmp);
 }
 
-void	rotate(int	**stack, int size)
+void	rotate(int **stack, int size)
 {
 	int	i;
 
@@ -60,7 +60,7 @@ void	rotate(int	**stack, int size)
 	}
 }
 
-void	reverse_rotate(int	**stack, int size)
+void	reverse_rotate(int **stack, int size)
 {
 	int	i;
 
