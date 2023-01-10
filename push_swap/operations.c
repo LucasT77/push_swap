@@ -6,11 +6,58 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:03:18 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/10 16:14:10 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/10 17:13:11 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	operations(int **stackB, int **stackA, int *sizeA, int *sizeB, char *op)
+{
+	switch (op)
+	{
+		case "sa":
+			swap((*stackA)[0], (*stackA)[1]);
+			break ;
+		case "sb":
+			swap((*stackB)[0], (*stackB)[1]);
+			break ;
+		case "ss":
+			swap((*stackA)[0], (*stackA)[1]);
+			swap((*stackB)[0], (*stackB)[1]);
+			break ;
+		case "pa":
+			push(&(*stackB), &(*stackA), sizeB, sizeA);
+			*sizeB--;
+			*sizeA++;
+			break ;
+		case "pb":
+			push(&(*stackA), &(*stackB), sizeA, sizeB);
+			*sizeA--;
+			*sizeB++;
+			break ;
+		case "ra":
+			rotate(&(*stackA), sizeA);
+			break ;
+		case "rb":
+			rotate(&(*stackB), sizeB);
+			break ;
+		case "rr":
+			rotate(&(*stackA), sizeA);
+			rotate(&(*stackB), sizeB);
+			break ;
+		case "rra":
+			reverse_rotate(&(*stackA), sizeA);
+			break ;
+		case "rrb":
+			reverse_rotate(&(*stackB), sizeB);
+			break ;
+		case "rrr":
+			reverse_rotate(&(*stackA), sizeA);
+			reverse_rotate(&(*stackB), sizeB);
+			break ;
+	}
+}
 
 void	swap(int *first, int *second)
 {
