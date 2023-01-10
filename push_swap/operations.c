@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:03:18 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/10 15:50:42 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:14:10 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	push(int **taken, int **given, int size_taken, int size_given)
 	i = 1;
 	while (i <= size_given)
 	{
-		(*given)[i] = given_tmp[(i-1)];
+		(*given)[i] = given_tmp[(i - 1)];
 		i++;
 	}
 	i = 0;
 	while (i < size_taken - 1)
 	{
-		(*taken)[i] = taken_tmp[(i+1)];
+		(*taken)[i] = taken_tmp[(i + 1)];
 		i++;
 	}
 	free(taken_tmp);
@@ -53,7 +53,7 @@ void	rotate(int **stack, int size)
 	i = size - 1;
 	while (i > 0)
 	{
-		(*stack)[0] ^= (*stack)[i];		
+		(*stack)[0] ^= (*stack)[i];
 		(*stack)[i] ^= (*stack)[0];
 		(*stack)[0] ^= (*stack)[i];
 		i--;
@@ -67,7 +67,7 @@ void	reverse_rotate(int **stack, int size)
 	i = 0;
 	while (i < size - 1)
 	{
-		(*stack)[size - 1] ^= (*stack)[i];		
+		(*stack)[size - 1] ^= (*stack)[i];
 		(*stack)[i] ^= (*stack)[size - 1];
 		(*stack)[size - 1] ^= (*stack)[i];
 		i++;
