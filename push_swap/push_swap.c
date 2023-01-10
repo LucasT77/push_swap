@@ -22,12 +22,12 @@ int	main(int argc, char **argv)
 	stack_b = malloc(sizeof(int) * (argc - 1));
 	if (boo == 0)
 	{
-		printf("Error\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	/*while (i < argc - 1)
 	{
-		printf("%d\n", stack[i]);
+		ft_printf("%d\n", stack[i]);
 		i++;
 	}*/
 	free (stack_a);
