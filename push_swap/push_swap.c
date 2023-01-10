@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/10 16:16:14 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:33:54 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	main(int argc, char **argv)
 {	
-	int	i;
 	int	*stack_a;
 	int	*stack_b;
 	int	boo;

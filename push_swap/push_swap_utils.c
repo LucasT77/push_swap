@@ -6,13 +6,13 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:15:46 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/10 16:17:03 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:37:08 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_strlen(const char *s)
+int	int_strlen(const char *s)
 {
 	int	i;
 
@@ -61,7 +61,7 @@ int	error_checker(int argc, char **argv)
 		return (0);
 	while (argv[i])
 	{
-		while (j < ft_strlen(argv[i]))
+		while (j < int_strlen(argv[i]))
 		{
 			if (j == 0 && argv[i][j] == '-')
 			{
