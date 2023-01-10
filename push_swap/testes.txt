@@ -94,3 +94,75 @@ int main()
     return 0;
 }
 //////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_array(int *array, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        printf("%d\n", array[i++]);
+}
+
+void	push(int **taken, int **given, int size_taken, int size_given)
+{
+	int	*taken_tmp;
+	int	*given_tmp;
+	int	i;
+
+	taken_tmp = (*taken);
+	given_tmp = (*given);
+	(*taken) = malloc(sizeof(int) * (size_taken - 1));
+	(*given) = malloc(sizeof(int) * (size_given + 1));
+	(*given)[0] = taken_tmp[0];
+	i = 1;
+	while (i <= size_given)
+	{
+		(*given)[i] = given_tmp[(i-1)];
+		i++;
+	}
+	i = 0;
+	while (i < size_taken - 1)
+	{
+		(*taken)[i] = taken_tmp[(i+1)];
+		i++;
+	}
+	free(taken_tmp);
+	free(given_tmp);
+}
+
+int main()
+{
+    int size = 5;
+    int *x;
+    int *y;
+    int i;
+
+    x = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        x[i] = i + 1;
+        i++;
+    }
+    y = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        y[i] = (i + 1) * 10;
+        i++;
+    }
+    print_array(x, size);
+    printf("\n\n");
+    print_array(y, size);
+    printf("\n\n");
+    push(&y, &x, size, size);
+    print_array(x, size + 1);
+    printf("\n\n");
+    print_array(y, size - 1);
+    free (x);
+    return 0;
+}
+/////////////////////////////////////////////////
