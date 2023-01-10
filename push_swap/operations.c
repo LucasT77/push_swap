@@ -39,7 +39,7 @@ void	push(int **taken, int **given, int size_taken, int size_given)
 	i = 0;
 	while (i < size_taken - 1)
 	{
-		(*taken)[i] = taken_tmp[(i+1)]
+		(*taken)[i] = taken_tmp[(i+1)];
 		i++;
 	}
 	free(taken_tmp);
