@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:02:48 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/10 16:36:24 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:20:07 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ int		int_strlen(const char *s);
 int		char_to_int(char *str, int *num);
 int		error_checker(int argc, char **argv);
 int		*string_to_array(int argc, char **argv, int *boo);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 void	swap(int *first, int *second);
 void	push(int **taken, int **given, int size_taken, int size_given);
 void	rotate(int **stack, int size);
 void	reverse_rotate(int **stack, int size);
+void	operations(int **stack_a, int **stack_b, int **sizes, char *op);
 
 #endif

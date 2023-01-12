@@ -6,54 +6,54 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:03:18 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/12 18:07:43 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:19:52 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*void	operations(int **stackA, int **stackB, int **sizeAB, char *op)
+void	operations(int **stack_a, int **stack_b, int **sizes, char *op)
 {
 	if (ft_strncmp(op, "sa", 2) == 0)
-		swap(&(*stackA)[0], &(*stackA)[1]);
+		swap(&(*stack_a)[0], &(*stack_a)[1]);
 	if (ft_strncmp(op, "sb", 2) == 0)
-		swap(&(*stackB)[0], &(*stackB)[1]);
+		swap(&(*stack_b)[0], &(*stack_b)[1]);
 	if (ft_strncmp(op, "ss", 2) == 0)
 	{
-		swap(&(*stackA)[0], &(*stackA)[1]);
-		swap(&(*stackB)[0], &(*stackB)[1]);
+		swap(&(*stack_a)[0], &(*stack_a)[1]);
+		swap(&(*stack_b)[0], &(*stack_b)[1]);
 	}
 	if (ft_strncmp(op, "pa", 2) == 0)
 	{
-		push(&(*stackB), &(*stackA), *sizeB, *sizeA);
-		*sizeAB[1] -= 1;
-		*sizeAB[0] += 1;
+		push(&(*stack_b), &(*stack_a), *sizeB, *sizeA);
+		*sizes[1] -= 1;
+		*sizes[0] += 1;
 	}
 	if (ft_strncmp(op, "pb", 2) == 0)
 	{
-		push(&(*stackA), &(*stackB), *sizeA, *sizeB);
-		*sizeAB[0] -= 1;
-		*sizeAB[1] += 1;
+		push(&(*stack_a), &(*stack_b), *sizeA, *sizeB);
+		*sizes[0] -= 1;
+		*sizes[1] += 1;
 	}
 	if (ft_strncmp(op, "ra", 2) == 0)
-		rotate(&(*stackA), *sizeA);
+		rotate(&(*stack_a), *sizeA);
 	if (ft_strncmp(op, "rb", 2) == 0)
-		rotate(&(*stackB), *sizeB);
+		rotate(&(*stack_b), *sizeB);
 	if (ft_strncmp(op, "rr", 2) == 0)
 	{
-		rotate(&(*stackA), *sizeA);
-		rotate(&(*stackB), *sizeB);
+		rotate(&(*stack_a), *sizeA);
+		rotate(&(*stack_b), *sizeB);
 	}
 	if (ft_strncmp(op, "rra", 2) == 0)
-		reverse_rotate(&(*stackA), *sizeA);
+		reverse_rotate(&(*stack_a), *sizeA);
 	if (ft_strncmp(op, "rrb", 2) == 0)
-		reverse_rotate(&(*stackB), *sizeB);
+		reverse_rotate(&(*stack_b), *sizeB);
 	if (ft_strncmp(op, "rrr", 2) == 0)
 	{
-		reverse_rotate(&(*stackA), *sizeA);
-		reverse_rotate(&(*stackB), *sizeB);
+		reverse_rotate(&(*stack_a), *sizeA);
+		reverse_rotate(&(*stack_b), *sizeB);
 	}
-}*/
+}
 
 void	swap(int *first, int *second)
 {
