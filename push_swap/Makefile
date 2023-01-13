@@ -6,13 +6,13 @@
 #    By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 15:22:54 by luaraujo          #+#    #+#              #
-#    Updated: 2023/01/12 17:53:00 by luaraujo         ###   ########.fr        #
+#    Updated: 2023/01/13 12:30:44 by luaraujo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	push_swap
 
-SOURCE		=	push_swap.c push_swap_utils.c operations.c
+SOURCE		=	push_swap.c push_swap_utils.c operations.c selector.c
 OBJECT		=	$(SOURCE:.c=.o)
 
 PRINTF			=	ft_printf/libftprintf.a
