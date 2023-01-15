@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 12:23:15 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/13 12:33:17 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/15 17:33:54 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	selector_sp(int **stack_a, int **stack_b, int **sizes, char *op)
 {
 	if (ft_strncmp(op, "sa", 2) == 0)
-		swap(&(*stack_a)[0], &(*stack_a)[1]);
+		swap(&(*stack_a));
 	if (ft_strncmp(op, "sb", 2) == 0)
-		swap(&(*stack_b)[0], &(*stack_b)[1]);
+		swap(&(*stack_b));
 	if (ft_strncmp(op, "ss", 2) == 0)
 	{
-		swap(&(*stack_a)[0], &(*stack_a)[1]);
-		swap(&(*stack_b)[0], &(*stack_b)[1]);
+		swap(&(*stack_a));
+		swap(&(*stack_b));
 	}
 	if (ft_strncmp(op, "pa", 2) == 0)
 	{
@@ -65,4 +65,5 @@ void	selector(int **stack_a, int **stack_b, int **sizes, char *op)
 		selector_sp(&(*stack_a), &(*stack_b), &(*sizes), op);
 	if (op[0] == 'r')
 		selector_r(&(*stack_a), &(*stack_b), &(*sizes), op);
+	ft_printf("%s\n", op);
 }

@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:15:46 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/13 11:27:57 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:51:12 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,14 @@ int	int_strlen(const char *s)
 	return (i);
 }
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	print_array(int *array, int size)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while ((unsigned char)s1[i] == (unsigned char)s2[i] && s1[i] != '\0')
-		i++;
-	if (i >= n)
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	while (i < size)
+		ft_printf("%d\n", array[i++]);
 }
-
 
 int	char_to_int(char *str, int *num)
 {
@@ -115,5 +111,7 @@ int	*string_to_array(int argc, char **argv, int *boo)
 		}
 		i++;
 	}
+	if (*boo == 0)
+		ft_printf("Error\n");
 	return (stack);
 }

@@ -6,17 +6,17 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:03:18 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/13 12:23:07 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:21:15 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	swap(int *first, int *second)
+void	swap(int **stack)
 {
-	*first ^= *second;
-	*second ^= *first;
-	*first ^= *second;
+	(*stack)[0] ^= (*stack)[1];
+	(*stack)[1] ^= (*stack)[0];
+	(*stack)[0] ^= (*stack)[1];
 }
 
 void	push(int **taken, int **given, int size_taken, int size_given)

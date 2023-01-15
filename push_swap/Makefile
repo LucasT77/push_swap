@@ -6,7 +6,7 @@
 #    By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 15:22:54 by luaraujo          #+#    #+#              #
-#    Updated: 2023/01/13 12:30:44 by luaraujo         ###   ########.fr        #
+#    Updated: 2023/01/15 12:49:30 by luaraujo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,26 +15,26 @@ NAME			=	push_swap
 SOURCE		=	push_swap.c push_swap_utils.c operations.c selector.c
 OBJECT		=	$(SOURCE:.c=.o)
 
-PRINTF			=	ft_printf/libftprintf.a
+LIBFT			=	libft/libft.a
 CC 				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 RM				=	rm -f
 
 
 all:			$(NAME) 
-$(PRINTF):
-						$(MAKE) -C ft_printf
-$(NAME):		$(OBJECT) $(PRINTF)
-						$(CC) $(CFLAGS) $(OBJECT) $(PRINTF) -o push_swap
+$(LIBFT):
+						$(MAKE) -C libft
+$(NAME):		$(OBJECT) $(LIBFT)
+						$(CC) $(CFLAGS) $(OBJECT) $(LIBFT) -o push_swap
 						echo "Mandatory done"
 
 clean:
-						$(MAKE) clean -C ft_printf
+						$(MAKE) clean -C libft
 						$(RM) $(OBJECT)
 						echo "Cleaned"
 
 fclean:			clean
-						$(MAKE) fclean -C ft_printf
+						$(MAKE) fclean -C libft
 						$(RM) $(NAME)
 						echo "Fully cleaned"
 
