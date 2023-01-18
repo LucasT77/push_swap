@@ -32,4 +32,10 @@ void	rotate(int **stack, int size);
 void	reverse_rotate(int **stack, int size);
 void	selector(int **stack_a, int **stack_b, int **sizes, char *op);
 
+int		check(int **stack, int size);
+void	sort_for3(char which, int **stack, int size);
+int		little(int **stack, int init, int end);
+void	minor_to_top(int which, int **stack, int size);
+void	sort_for5(int **stack_a, int **stack_b, int **sizes);
+
 #endif
