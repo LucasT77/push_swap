@@ -6,25 +6,11 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/15 19:49:03 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:00:44 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	check(int **stack, int size)
-{
-	int	i;
-
-	i = 1;
-	while (i < size)
-	{
-		if ((*stack)[i] < (*stack)[i - 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 int	main(int argc, char **argv)
 {	
@@ -42,6 +28,8 @@ int	main(int argc, char **argv)
 	sizes[1] = 0;
 	if (sizes[0] <= 5)
 		sort_for5(&stack_a, &stack_b, &sizes);
+	else
+		stack_a = to_naturals(stack_a, sizes[0]);
 	print_array(stack_a, sizes[0]);
 	free (sizes);
 	free (stack_a);
