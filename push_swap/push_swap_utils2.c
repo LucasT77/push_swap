@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:00:54 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/20 15:02:17 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:18:08 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,31 @@ int	*to_naturals(int *stack, int size)
 	int	*newstack;
 
 	newstack = malloc(sizeof(int) * size);
+	if (!newstack)
+		return (0);
 	i = 0;
 	while (i < size)
 	{
 		index = minor(stack, size);
+		ft_printf("%d -", index);
 		newstack[index] = i;
 		i++;
 	}
 	return (newstack);
 }
+
+
+/*
+int main()
+{
+    int arr[] = {6, 5, 1, -56, 0, 45};
+    int i, x;
+    for (i = 0; i < 6; i++)
+    {
+        x = minor(arr, 5);
+        printf("%d\n", x);
+    }
+
+    return 0;
+}
+*/
