@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:00:54 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/20 17:18:08 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/21 16:31:05 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,18 @@ int	minor(int *stack, int size)
 		minor = INT_MIN;
 	while (i < size)
 	{
-		if (stack[i] < stack[index] && stack[i] > minor)
+		if (stack[i] > minor)
+		{
 			index = i;
+			i = 0;
+			while (i < size)
+			{
+				if (stack[i] < stack[index] && stack[i] > minor)
+					index = i;
+				i++;
+			}
+			break ;
+		}
 		i++;
 	}
 	minor = stack[index];
@@ -68,7 +78,7 @@ int	*to_naturals(int *stack, int size)
 	while (i < size)
 	{
 		index = minor(stack, size);
-		ft_printf("%d -", index);
+		//ft_printf("%d -", index);
 		newstack[index] = i;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/20 18:24:36 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/21 17:21:00 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	radix(int **stack_a, int **stack_b, int **sizes)
 			else
 				index++;
 		}
-		index = 0;
-		while (index < (*sizes)[1])
+		index = (*sizes)[1];
+		while (index > 0)
 		{
 			selector(&(*stack_a), &(*stack_b), &(*sizes), "pa");
-			index++;
+			index--;
 		}
 		if (check(&(*stack_a), (*sizes)[0]) == 1)
 			return ;
@@ -88,7 +88,6 @@ int	main(int argc, char **argv)
 	else
 	{
 		stack_a = to_naturals(stack_a, sizes[0]);
-		print_array(stack_a, sizes[0]);
 		radix(&stack_a, &stack_b, &sizes);
 	}
 	print_array(stack_a, sizes[0]);
