@@ -6,13 +6,14 @@
 #    By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/02 15:22:54 by luaraujo          #+#    #+#              #
-#    Updated: 2023/01/20 16:24:18 by luaraujo         ###   ########.fr        #
+#    Updated: 2023/01/21 20:53:37 by luaraujo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	push_swap
 
-SOURCE		=	push_swap.c push_swap_utils.c operations.c selector.c sort_5_or_less.c push_swap_utils2.c
+SOURCE		=	push_swap.c push_swap_utils.c operations.c \
+				selector.c sort_5_or_less.c push_swap_utils2.c radix.c
 OBJECT		=	$(SOURCE:.c=.o)
 
 LIBFT			=	libft/libft.a

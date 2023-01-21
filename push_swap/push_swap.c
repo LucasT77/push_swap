@@ -6,66 +6,11 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/21 17:21:00 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/21 20:52:26 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	radix(int **stack_a, int **stack_b, int **sizes)
-{
-	int	i;
-	int	index;
-	int	middle;
-
-	i = 0;
-	middle = (*sizes)[0] / 2;
-	while (i < 32)
-	{
-		index = 0;
-		while (index < (*sizes)[0])
-		{
-			if (((*stack_a)[index] >> i & 1) == 0 && index == 0)
-				selector(&(*stack_a), &(*stack_b), &(*sizes), "pb");
-			else if (((*stack_a)[index] >> i & 1) == 0 && index == 1)
-			{
-				selector(&(*stack_a), &(*stack_b), &(*sizes), "sa");
-				selector(&(*stack_a), &(*stack_b), &(*sizes), "pb");
-				index--;
-			}
-			else if (((*stack_a)[index] >> i & 1) == 0 && index <= middle)
-			{
-				while (index > 0)
-				{
-					selector(&(*stack_a), &(*stack_b), &(*sizes), "ra");
-					index--;
-				}
-				selector(&(*stack_a), &(*stack_b), &(*sizes), "pb");
-			}
-			else if (((*stack_a)[index] >> i & 1) == 0 && index > middle)
-			{
-				while (index < (*sizes)[0])
-				{
-					selector(&(*stack_a), &(*stack_b), &(*sizes), "rra");
-					index++;
-				}
-				selector(&(*stack_a), &(*stack_b), &(*sizes), "pb");
-				index = 0;
-			}
-			else
-				index++;
-		}
-		index = (*sizes)[1];
-		while (index > 0)
-		{
-			selector(&(*stack_a), &(*stack_b), &(*sizes), "pa");
-			index--;
-		}
-		if (check(&(*stack_a), (*sizes)[0]) == 1)
-			return ;
-		i++;
-	}
-}
 
 int	main(int argc, char **argv)
 {	

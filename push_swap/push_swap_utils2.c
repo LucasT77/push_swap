@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:00:54 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/21 16:31:05 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/21 18:09:55 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,15 @@ int	check(int **stack, int size)
 
 int	minor(int *stack, int size)
 {
-	static int	minor;
-	static int	i;
-	static int	init;
-	static int	count;
+	int			i;
 	int			index;
+	static int	minor;
+	static int	count;
 
-	index = i;
+	i = 0;
 	if (count == 0)
 		minor = INT_MIN;
-	while (i < size)
+	while (i++ < size)
 	{
 		if (stack[i] > minor)
 		{
@@ -49,18 +48,9 @@ int	minor(int *stack, int size)
 					index = i;
 				i++;
 			}
-			break ;
 		}
-		i++;
 	}
 	minor = stack[index];
-	if (index == init)
-	{
-		init++;
-		i = init;
-	}
-	else
-		i = 0;
 	count++;
 	return (index);
 }
@@ -78,25 +68,8 @@ int	*to_naturals(int *stack, int size)
 	while (i < size)
 	{
 		index = minor(stack, size);
-		//ft_printf("%d -", index);
 		newstack[index] = i;
 		i++;
 	}
 	return (newstack);
 }
-
-
-/*
-int main()
-{
-    int arr[] = {6, 5, 1, -56, 0, 45};
-    int i, x;
-    for (i = 0; i < 6; i++)
-    {
-        x = minor(arr, 5);
-        printf("%d\n", x);
-    }
-
-    return 0;
-}
-*/

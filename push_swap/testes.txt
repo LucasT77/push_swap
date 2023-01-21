@@ -1,3 +1,5 @@
+// arg="3 2 1"; ./push_swap $arg | ./checher_linux $arg
+
 //////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
