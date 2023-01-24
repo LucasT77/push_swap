@@ -1,0 +1,365 @@
+// arg="3 2 1"; ./push_swap $arg | ./checher_linux $arg
+
+//////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_array(int *array, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        printf("%d\n", array[i++]);
+}
+
+int	*rotate(int	*stack, int size)
+{
+	int	i;
+
+	i = size - 1;
+	while (i > 0)
+	{
+		stack[0] ^= stack[i];		
+		stack[i] ^= stack[0];
+		stack[0] ^= stack[i];
+		i--;
+	}
+	return (stack);
+}
+
+int main()
+{
+    int size = 5;
+    int *x;
+    int i;
+
+    x = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        x[i] = i + 1;
+        i++;
+    }
+    print_array(x, size);
+    x = rotate(x, size);
+    printf("\n\n");
+    print_array(x, size);
+    free (x);
+    return 0;
+}
+///////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_array(int *array, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        printf("%d\n", array[i++]);
+}
+
+void	*rotate(int	**stack, int size)
+{
+	int	i;
+
+	i = size - 1;
+	while (i > 0)
+	{
+		(*stack)[0] ^= (*stack)[i];		
+		(*stack)[i] ^= (*stack)[0];
+		(*stack)[0] ^= (*stack)[i];
+		i--;
+	}
+}
+
+int main()
+{
+    int size = 5;
+    int *x;
+    int i;
+
+    x = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        x[i] = i + 1;
+        i++;
+    }
+    print_array(x, size);
+    rotate(&x, size);
+    printf("\n\n");
+    print_array(x, size);
+    free (x);
+    return 0;
+}
+//////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_array(int *array, int size)
+{
+    int i;
+
+    i = 0;
+    while (i < size)
+        printf("%d\n", array[i++]);
+}
+
+void	push(int **taken, int **given, int size_taken, int size_given)
+{
+	int	*taken_tmp;
+	int	*given_tmp;
+	int	i;
+
+	taken_tmp = (*taken);
+	given_tmp = (*given);
+	(*taken) = malloc(sizeof(int) * (size_taken - 1));
+	(*given) = malloc(sizeof(int) * (size_given + 1));
+	(*given)[0] = taken_tmp[0];
+	i = 1;
+	while (i <= size_given)
+	{
+		(*given)[i] = given_tmp[(i-1)];
+		i++;
+	}
+	i = 0;
+	while (i < size_taken - 1)
+	{
+		(*taken)[i] = taken_tmp[(i+1)];
+		i++;
+	}
+	free(taken_tmp);
+	free(given_tmp);
+}
+
+int main()
+{
+    int size = 5;
+    int *x;
+    int *y;
+    int i;
+
+    x = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        x[i] = i + 1;
+        i++;
+    }
+    y = malloc(sizeof(int) * size);
+    i = 0;
+    while (i < size)
+    {
+        y[i] = (i + 1) * 10;
+        i++;
+    }
+    print_array(x, size);
+    printf("\n\n");
+    print_array(y, size);
+    printf("\n\n");
+    push(&y, &x, size, size);
+    print_array(x, size + 1);
+    printf("\n\n");
+    print_array(y, size - 1);
+    free (x);
+    return 0;
+}
+/////////////////////////////////////////////////
+/*ft_printf("1:\n");
+	print_array(stack_a, sizes[0]);
+	ft_printf("\n");
+	ft_printf("2:\n");
+	print_array(stack_b, sizes[1]);
+	ft_printf("size a: %d\n", sizes[0]);
+	ft_printf("size b: %d\n", sizes[1]);
+	selector(&stack_a, &stack_b, &sizes, "pb");
+	ft_printf("\n");
+	ft_printf("3:\n");
+	print_array(stack_a, sizes[0]);
+	ft_printf("\n");
+	ft_printf("4:\n");
+	print_array(stack_b, sizes[1]);
+	ft_printf("size a: %d\n", sizes[0]);
+	ft_printf("size b: %d\n", sizes[1]);*/
+////////////////////////////////////////////////
+
+#include <stdio.h>
+
+int	ft_power(int nb, int power)
+{
+	int	result;
+
+	if (power < 0)
+		return (0);
+	result = 1;
+	if (power == 0)
+		return (1);
+	while (power >= 1)
+	{
+		result *= nb;
+		power--;
+	}
+	return (result);
+}
+
+int main()
+{
+    int x;
+    int bit;
+    int cont;
+    
+    cont = 0;
+    bit = 0;
+    x = 7;
+    printf("x = %d\n", x);
+    while (bit < 32)
+    {
+        cont += (x >> bit & 1) * ft_power(2, bit);
+        if (cont == x)
+            break ;
+        bit++;
+    }
+    printf ("bit = %d\n", bit);
+    printf("cont = %d\n", cont);
+
+    return 0;
+}
+
+///////////////////////////////////////////////////////
+
+void	radix(int **stack_a, int **stack_b, int **sizes)
+{
+	int	bit;
+	int	i;
+	//int	*tmp;
+
+	bit = 0;
+	//tmp = malloc(sizeof(int) * (*sizes)[0]);
+	while (bit < 32)
+	{
+		radix_aux(&(*stack_a), &(*stack_b), &(*sizes), bit);
+		i = (*sizes)[1];
+		/*ft_printf("stack_a:\n");
+		print_array((*stack_a), (*sizes)[0]);
+		ft_printf("\nstack_b:\n");
+		print_array((*stack_b), (*sizes)[1]);*/
+		while (i > 0)
+		{
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "pa");
+			i--;
+		}
+		//ft_printf("\ntmp:\n");
+		//print_array(tmp, (*sizes)[0]);
+		if (check(&(*stack_a), (*sizes)[0]) == 1)
+			return ;
+		/*if (check(&(*stack_a), (*sizes)[0]) == 0 && tmp == *stack_a)
+			radix(&(*stack_a), &(*stack_b), &(*sizes));*/
+		//tmp = *stack_a;
+		bit++;
+	}
+}
+
+////////////////////////////////////////////////////////
+
+c1r15s5% make re  (-Wall -Wextra -Werror -g)                            
+Cleaned
+Fully cleaned
+Mandatory done
+c1r15s5% gdb ./push_swap                          
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./push_swap...
+(gdb) run 
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap 
+Error
+[Inferior 1 (process 269413) exited normally]
+(gdb) run "2 44 1 -456 0 33 -10 54"
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap "2 44 1 -456 0 33 -10 54"
+pb
+pb
+sa
+pb
+sa
+pb
+pa
+pa
+pa
+pa
+pb
+sa
+pb
+ra
+ra
+ra
+pb
+pb
+pa
+pa
+pa
+pa
+sa
+pb
+ra
+ra
+pb
+ra
+ra
+pb
+pb
+pa
+pa
+pa
+pa
+0
+1
+2
+3
+4
+5
+7
+6
+[Inferior 1 (process 269501) exited normally]
+(gdb) break radix
+Breakpoint 1 at 0x4024a4: file radix.c, line 107.
+(gdb) 
+Note: breakpoint 1 also set at pc 0x4024a4.
+Breakpoint 2 at 0x4024a4: file radix.c, line 107.
+(gdb) run "2 44 1 -456 0 33 -10 54"
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap "2 44 1 -456 0 33 -10 54"
+
+Breakpoint 1, radix (stack_a=0x7fffffffe398, stack_b=0x7fffffffe390, sizes=0x7fffffffe388)
+    at radix.c:107
+107		bit = 0;
+(gdb) display stack_a stack_b 
+A syntax error in expression, near `stack_b'.
+(gdb) display stack_a 
+1: stack_a = (int **) 0x7fffffffe398
+(gdb) display stack_b 
+2: stack_b = (int **) 0x7fffffffe390
+(gdb) n
+108		limiter = 0;
+1: stack_a = (int **) 0x7fffffffe398
+2: stack_b = (int **) 0x7fffffffe390
+(gdb) display *stack_b 
+3: *stack_b = (int *) 0x407440
+(gdb) display **stack_b 
+4: **stack_b = 0
+(gdb) display **stack_a
+5: **stack_a = 4
+(gdb) display **stack_a
