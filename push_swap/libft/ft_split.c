@@ -3,35 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luaraujo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:04:41 by luaraujo          #+#    #+#             */
-/*   Updated: 2022/11/07 18:04:44 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/26 17:41:03 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*copy_words(char const *src, int len)
+static void copy_words(char const *src, int len, char **str)
 {
-	int		i;
-	char	*dest_aux;
-	char	*src_aux;
-	char	*dest;
+	int	i;
 
-	dest = malloc(sizeof(char) * (len + 1));
-	if (!dest)
-		return (0);
 	i = 0;
-	dest_aux = (char *)dest;
-	src_aux = (char *)src;
 	while (i < len)
 	{
-		dest_aux[i] = src_aux[i];
+		(*str)[i] = src[i];
 		i++;
 	}
-	dest_aux[i] = '\0';
-	return (dest);
+	(*str)[i] = '\0';
 }
 
 static int	num_of_words(char const *s, char c)
@@ -72,7 +63,10 @@ static char	**ft_split_aux(char const *s, char c, int words, char **str)
 			len++;
 		if (len > 0)
 		{
-			str[i] = copy_words(s, len);
+			str[i] = malloc(sizeof(char) * (len + 1));
+			if (!str[i])
+				return (0);
+			copy_words(s, len, &str[i]);
 			s += len;
 			len = 0;
 		}

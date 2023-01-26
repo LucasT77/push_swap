@@ -6,11 +6,28 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:00:54 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/21 18:09:55 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:38:15 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_power(int nb, int power)
+{
+	int	result;
+
+	if (power < 0)
+		return (0);
+	result = 1;
+	if (power == 0)
+		return (1);
+	while (power >= 1)
+	{
+		result *= nb;
+		power--;
+	}
+	return (result);
+}
 
 int	check(int **stack, int size)
 {
@@ -55,7 +72,7 @@ int	minor(int *stack, int size)
 	return (index);
 }
 
-int	*to_naturals(int *stack, int size)
+int	*to_naturals(int **stack, int size)
 {
 	int	i;
 	int	index;
@@ -67,9 +84,10 @@ int	*to_naturals(int *stack, int size)
 	i = 0;
 	while (i < size)
 	{
-		index = minor(stack, size);
+		index = minor((*stack), size);
 		newstack[index] = i;
 		i++;
 	}
+	free (*stack);
 	return (newstack);
 }

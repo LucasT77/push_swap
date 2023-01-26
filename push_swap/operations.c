@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:03:18 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/15 16:21:15 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:33:17 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	push(int **taken, int **given, int size_taken, int size_given)
 	given_tmp = (*given);
 	(*taken) = malloc(sizeof(int) * (size_taken - 1));
 	(*given) = malloc(sizeof(int) * (size_given + 1));
+	if (!(*taken) || !(*given))
+		return ;
 	(*given)[0] = taken_tmp[0];
 	i = 1;
 	while (i <= size_given)

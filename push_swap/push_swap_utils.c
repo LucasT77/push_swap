@@ -6,20 +6,38 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:15:46 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/15 12:51:12 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/26 16:57:15 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	int_strlen(const char *s)
+int	organizer(int argc, char **argv, int **stack_a, int **sizes)
 {
-	int	i;
+	char	**str;
+	int		length;
 
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (error_checker(argc, argv) == 0)
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
+	str = ft_split(argv[1], ' ');
+	length = 0;
+	while (str[length])
+		length++;
+	if (string_to_array(length, str, &(*stack_a)) == 0)
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
+	free (str);
+	*sizes = malloc(sizeof(int) * 2);
+	if (!(*sizes))
+		return (0);
+	(*sizes)[0] = length;
+	(*sizes)[1] = 0;
+	return (1);
 }
 
 void	print_array(int *array, int size)
@@ -61,57 +79,51 @@ int	char_to_int(char *str, int *num)
 
 int	error_checker(int argc, char **argv)
 {
-	int	i;
 	int	j;
 
-	i = 1;
 	j = 0;
-	if (argc < 2)
+	if (argc != 2)
 		return (0);
-	while (argv[i])
+	while (j < (int)ft_strlen(argv[1]))
 	{
-		while (j < int_strlen(argv[i]))
+		if (argv[1][j] == '-')
 		{
-			if (j == 0 && argv[i][j] == '-')
-			{
-				j++;
-				continue ;
-			}
-			if (argv[i][j] < '0' || argv[i][j] > '9')
+			if ((j != 0 && argv[1][j - 1] != ' ')
+				|| ft_isdigit(argv[1][j + 1]) == 0)
 				return (0);
 			j++;
+			continue ;
 		}
-		j = 0;
-		i++;
+		if (ft_isdigit(argv[1][j]) == 0 && argv[1][j] != ' ')
+			return (0);
+		j++;
 	}
 	return (1);
 }
 
-int	*string_to_array(int argc, char **argv, int *boo)
+int	string_to_array(int length, char **str, int **stack_a)
 {
-	int	*stack;
 	int	i;
 	int	cont;	
 
-	*boo = 1;
-	if (error_checker(argc, argv) == 0)
-		*boo = 0;
-	stack = malloc(sizeof(int) * (argc - 1));
-	i = 1;
-	while (i < argc)
+	*stack_a = malloc(sizeof(int) * length);
+	if (!(*stack_a))
+		return (0);
+	i = 0;
+	while (i < length)
 	{
-		if (char_to_int(argv[i], &stack[(i - 1)]) == 0)
-			*boo = 0;
+		if (char_to_int(str[i], &(*stack_a)[i]) == 0)
+			return (0);
 		cont = 0;
-		while (cont < (i - 1))
+		while (cont < i)
 		{
-			if (stack[(i - 1)] == stack[cont])
-				*boo = 0;
+			if ((*stack_a)[i] == (*stack_a)[cont])
+			{
+				return (0);
+			}
 			cont++;
 		}
 		i++;
 	}
-	if (*boo == 0)
-		ft_printf("Error\n");
-	return (stack);
+	return (1);
 }

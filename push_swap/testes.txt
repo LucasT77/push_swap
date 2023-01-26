@@ -185,3 +185,314 @@ int main()
 	ft_printf("size a: %d\n", sizes[0]);
 	ft_printf("size b: %d\n", sizes[1]);*/
 ////////////////////////////////////////////////
+
+#include <stdio.h>
+
+int	ft_power(int nb, int power)
+{
+	int	result;
+
+	if (power < 0)
+		return (0);
+	result = 1;
+	if (power == 0)
+		return (1);
+	while (power >= 1)
+	{
+		result *= nb;
+		power--;
+	}
+	return (result);
+}
+
+int main()
+{
+    int x;
+    int bit;
+    int cont;
+    
+    cont = 0;
+    bit = 0;
+    x = 7;
+    printf("x = %d\n", x);
+    while (bit < 32)
+    {
+        cont += (x >> bit & 1) * ft_power(2, bit);
+        if (cont == x)
+            break ;
+        bit++;
+    }
+    printf ("bit = %d\n", bit);
+    printf("cont = %d\n", cont);
+
+    return 0;
+}
+
+///////////////////////////////////////////////////////
+
+void	radix(int **stack_a, int **stack_b, int **sizes)
+{
+	int	bit;
+	int	i;
+	//int	*tmp;
+
+	bit = 0;
+	//tmp = malloc(sizeof(int) * (*sizes)[0]);
+	while (bit < 32)
+	{
+		radix_aux(&(*stack_a), &(*stack_b), &(*sizes), bit);
+		i = (*sizes)[1];
+		/*ft_printf("stack_a:\n");
+		print_array((*stack_a), (*sizes)[0]);
+		ft_printf("\nstack_b:\n");
+		print_array((*stack_b), (*sizes)[1]);*/
+		while (i > 0)
+		{
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "pa");
+			i--;
+		}
+		//ft_printf("\ntmp:\n");
+		//print_array(tmp, (*sizes)[0]);
+		if (check(&(*stack_a), (*sizes)[0]) == 1)
+			return ;
+		/*if (check(&(*stack_a), (*sizes)[0]) == 0 && tmp == *stack_a)
+			radix(&(*stack_a), &(*stack_b), &(*sizes));*/
+		//tmp = *stack_a;
+		bit++;
+	}
+}
+
+////////////////////////////////////////////////////////
+
+c1r15s5% make re  (-Wall -Wextra -Werror -g)                            
+Cleaned
+Fully cleaned
+Mandatory done
+c1r15s5% gdb ./push_swap                          
+GNU gdb (Ubuntu 9.2-0ubuntu1~20.04.1) 9.2
+Copyright (C) 2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Type "show copying" and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from ./push_swap...
+(gdb) run 
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap 
+Error
+[Inferior 1 (process 269413) exited normally]
+(gdb) run "2 44 1 -456 0 33 -10 54"
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap "2 44 1 -456 0 33 -10 54"
+pb
+pb
+sa
+pb
+sa
+pb
+pa
+pa
+pa
+pa
+pb
+sa
+pb
+ra
+ra
+ra
+pb
+pb
+pa
+pa
+pa
+pa
+sa
+pb
+ra
+ra
+pb
+ra
+ra
+pb
+pb
+pa
+pa
+pa
+pa
+0
+1
+2
+3
+4
+5
+7
+6
+[Inferior 1 (process 269501) exited normally]
+(gdb) break radix
+Breakpoint 1 at 0x4024a4: file radix.c, line 107.
+(gdb) 
+Note: breakpoint 1 also set at pc 0x4024a4.
+Breakpoint 2 at 0x4024a4: file radix.c, line 107.
+(gdb) run "2 44 1 -456 0 33 -10 54"
+Starting program: /nfs/homes/luaraujo/Projects/push_swap2/push_swap "2 44 1 -456 0 33 -10 54"
+
+Breakpoint 1, radix (stack_a=0x7fffffffe398, stack_b=0x7fffffffe390, sizes=0x7fffffffe388)
+    at radix.c:107
+107		bit = 0;
+(gdb) display stack_a stack_b 
+A syntax error in expression, near `stack_b'.
+(gdb) display stack_a 
+1: stack_a = (int **) 0x7fffffffe398
+(gdb) display stack_b 
+2: stack_b = (int **) 0x7fffffffe390
+(gdb) n
+108		limiter = 0;
+1: stack_a = (int **) 0x7fffffffe398
+2: stack_b = (int **) 0x7fffffffe390
+(gdb) display *stack_b 
+3: *stack_b = (int *) 0x407440
+(gdb) display **stack_b 
+4: **stack_b = 0
+(gdb) display **stack_a
+5: **stack_a = 4
+(gdb) display **stack_a
+
+/////////////////////////////////////////////////////////////////////////
+
+#include "push_swap.h"
+
+void    to_binary(int num)
+{
+    int *arr;
+    int i;
+
+    if (num == 0)
+	{
+		ft_printf("%d", num);
+		return ;
+	}
+	arr = malloc(sizeof(int));
+    i = 0;
+    while (num > 0)
+    {
+        if (num % 2 > 0)
+            arr[i] = 1;
+        else
+            arr[i] = 0;
+        i++;
+        num /= 2;
+    }
+    while (i > 0)
+    {
+        ft_printf("%d", arr[i - 1]);
+        i--;
+    }
+}
+
+void	print_array_binary(int *array, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		to_binary(array[i]);
+		ft_printf("\n");
+		i++;
+	}
+}
+
+/*int	find_zero(int *stack, int size, int bit)
+{
+	int	count_beg;
+	int	count_end;
+
+	count_beg = 0;
+	count_end = size - 1;
+	while (count_beg < size)
+	{
+		if ((stack[count_beg] >> bit & 1) == 0)
+			break ;
+		count_beg++;
+	}
+	while (count_end > 0)
+	{
+		if ((stack[count_end] >> bit & 1) == 0)
+			break ;
+		count_end--;
+	}
+	if (count_beg >= size && count_end <= 0)
+		return (-1);
+	else if (size - 1 - count_end < count_beg - 0)
+		return (count_end);
+	else
+		return (count_beg);
+}*/
+
+static void	radix_aux(int **stack_a, int **stack_b, int **sizes, int bit)
+{
+	int	i;
+	//int	middle;
+	int	size;
+	//int	index;
+
+	i = 0;
+	//middle = (*sizes)[0] / 2;
+	size = (*sizes)[0];
+	//index = 0;
+	while (i < size)
+	{
+		/*index = find_zero((*stack_a), (*sizes)[0], bit);
+		//ft_printf("index = %d\n", index);
+		if (index == -1)
+			return ;
+		else if (index > (*sizes)[0] / 2)
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "rra");
+		else if (index <= (*sizes)[0] / 2 && index != 0)
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "ra");*/
+		if (((*stack_a)[0] >> bit & 1) == 1)
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "ra");
+		else
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "pb");
+		i++;
+	}
+}
+
+void	radix(int **stack_a, int **stack_b, int **sizes)
+{
+	int	bit;
+	int	i;
+	int	limiter;
+
+	bit = 0;
+	limiter = 0;
+	while (bit < 32)
+	{
+		radix_aux(&(*stack_a), &(*stack_b), &(*sizes), bit);
+		ft_printf("stack_a:\n");
+		print_array_binary((*stack_a), (*sizes)[0]);
+		ft_printf("\nstack_b:\n");
+		print_array_binary((*stack_b), (*sizes)[1]);
+		//if ((*sizes)[0] <= 5)
+		//	sort_for5(&(*stack_a), &(*stack_b), &(*sizes));
+		i = (*sizes)[1];
+		while (i > 0)
+		{
+			selector(&(*stack_a), &(*stack_b), &(*sizes), "pa");
+			i--;
+		}
+		if (check(&(*stack_a), (*sizes)[0]) == 1)
+			return ;
+		limiter += ft_power(2, bit);
+		if (limiter >= (*sizes)[0] - 1)
+			break ;
+		bit++;
+	}
+}
