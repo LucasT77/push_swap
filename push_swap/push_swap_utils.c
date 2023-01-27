@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:15:46 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/27 15:18:09 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:52 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	organizer(int argc, char **argv, int **stack_a, int **sizes)
 
 	if (error_checker(argc, argv) == 0)
 		return (0);
-	str = ft_split(argv[1], ' ');
+	str = ft_split(argv[1]);
 	length = 0;
 	while (str[length])
 		length++;

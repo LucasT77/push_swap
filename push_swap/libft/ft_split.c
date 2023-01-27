@@ -6,11 +6,19 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:04:41 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/27 15:22:39 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:27 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static int	is_space(char chr)
+{
+	if (chr == ' ' || chr == '\t' || chr == '\n')
+		return (1);
+	else
+		return (0);
+}
 
 static void	copy_words(char const *src, int len, char **str)
 {
@@ -25,7 +33,7 @@ static void	copy_words(char const *src, int len, char **str)
 	(*str)[i] = '\0';
 }
 
-static int	num_of_words(char const *s, char c)
+static int	num_of_words(char const *s)
 {
 	int	i;
 	int	words;
@@ -36,9 +44,9 @@ static int	num_of_words(char const *s, char c)
 	words = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (is_space(s[i]))
 			new = 1;
-		if (s[i] != c && (new == 1 || i == 0))
+		if (!is_space(s[i]) && (new == 1 || i == 0))
 		{
 			words++;
 			new = 0;
@@ -48,7 +56,7 @@ static int	num_of_words(char const *s, char c)
 	return (words);
 }
 
-static char	**ft_split_aux(char const *s, char c, int words, char **str)
+static char	**ft_split_aux(char const *s, int words, char **str)
 {
 	int	i;
 	int	len;
@@ -57,9 +65,9 @@ static char	**ft_split_aux(char const *s, char c, int words, char **str)
 	len = 0;
 	while (i < words)
 	{
-		while (*s == c)
+		while (is_space(*s))
 			s++;
-		while (s[len] != c && s[len] != '\0')
+		while (!is_space(s[len]) && s[len] != '\0')
 			len++;
 		if (len > 0)
 		{
@@ -76,17 +84,17 @@ static char	**ft_split_aux(char const *s, char c, int words, char **str)
 	return (str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s)
 {
 	char	**str;
 	int		words;
 
 	if (!s)
 		return (0);
-	words = num_of_words(s, c);
+	words = num_of_words(s);
 	str = malloc(sizeof(char *) * (words + 1));
 	if (!str)
 		return (0);
-	str = ft_split_aux(s, c, words, str);
+	str = ft_split_aux(s, words, str);
 	return (str);
 }
