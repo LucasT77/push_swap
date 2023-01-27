@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:00:54 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/26 16:38:15 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:14:10 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ int	check(int **stack, int size)
 	return (1);
 }
 
-int	minor(int *stack, int size)
+void	minor(int *stack, int size, int *index)
 {
 	int			i;
-	int			index;
 	static int	minor;
 	static int	count;
 
@@ -55,21 +54,21 @@ int	minor(int *stack, int size)
 		minor = INT_MIN;
 	while (i++ < size)
 	{
-		if (stack[i] > minor)
+		if ((stack[i] > minor) || (count == 0 && stack[i] == INT_MIN))
 		{
-			index = i;
+			*index = i;
 			i = 0;
 			while (i < size)
 			{
-				if (stack[i] < stack[index] && stack[i] > minor)
-					index = i;
+				if (stack[i] < stack[*index] && (stack[i] > minor
+						|| (count == 0 && stack[i] == INT_MIN)))
+					*index = i;
 				i++;
 			}
 		}
 	}
-	minor = stack[index];
+	minor = stack[*index];
 	count++;
-	return (index);
 }
 
 int	*to_naturals(int **stack, int size)
@@ -84,7 +83,7 @@ int	*to_naturals(int **stack, int size)
 	i = 0;
 	while (i < size)
 	{
-		index = minor((*stack), size);
+		minor((*stack), size, &index);
 		newstack[index] = i;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 16:43:01 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/26 17:44:25 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:26:11 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ int	main(int argc, char **argv)
 	int	*stack_b;
 	int	*sizes;
 
-	if (organizer(argc, argv, &stack_a, &sizes) == 0)
+	if (argc != 2)
 		return (0);
+	if (organizer(argc, argv, &stack_a, &sizes) == 0)
+	{
+		ft_printf("Error\n");
+		return (0);
+	}
 	stack_b = malloc(sizeof(int) * (argc - 1));
 	if (!stack_b)
 		return (0);
@@ -30,10 +35,7 @@ int	main(int argc, char **argv)
 		stack_a = to_naturals(&stack_a, sizes[0]);
 		radix(&stack_a, &stack_b, &sizes);
 	}
-	print_array(stack_a, sizes[0]);
 	free (sizes);
 	free (stack_a);
 	free (stack_b);
 }
-
-// Problema ao usar INT_MIN

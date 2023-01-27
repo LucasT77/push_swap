@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:15:46 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/26 16:57:15 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:18:09 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ int	organizer(int argc, char **argv, int **stack_a, int **sizes)
 	int		length;
 
 	if (error_checker(argc, argv) == 0)
-	{
-		ft_printf("Error\n");
 		return (0);
-	}
 	str = ft_split(argv[1], ' ');
 	length = 0;
 	while (str[length])
 		length++;
 	if (string_to_array(length, str, &(*stack_a)) == 0)
-	{
-		ft_printf("Error\n");
 		return (0);
-	}
-	free (str);
 	*sizes = malloc(sizeof(int) * 2);
 	if (!(*sizes))
 		return (0);
 	(*sizes)[0] = length;
 	(*sizes)[1] = 0;
+	length = 0;
+	while (str[length])
+	{
+		free (str[length]);
+		length++;
+	}
+	free (str);
 	return (1);
 }
 

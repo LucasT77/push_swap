@@ -6,13 +6,13 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 18:04:41 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/26 17:41:03 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 15:22:39 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void copy_words(char const *src, int len, char **str)
+static void	copy_words(char const *src, int len, char **str)
 {
 	int	i;
 

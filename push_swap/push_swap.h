@@ -6,7 +6,7 @@
 /*   By: luaraujo <luaraujo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:02:48 by luaraujo          #+#    #+#             */
-/*   Updated: 2023/01/26 16:47:53 by luaraujo         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:59:13 by luaraujo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_for3(char which, int **stack, int size);
 int		little(int **stack, int init, int end);
 void	minor_to_top(int which, int **stack, int size);
 void	sort_for5(int **stack_a, int **stack_b, int **sizes);
-int		minor(int *stack, int size);
+void	minor(int *stack, int size, int *index);
 int		*to_naturals(int **stack, int size);
 void	radix(int **stack_a, int **stack_b, int **sizes);
 
